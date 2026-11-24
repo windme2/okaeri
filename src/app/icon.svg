@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#337ffc"/>
+      <stop offset="1" stop-color="#164bdd"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="16" fill="url(#bg)"/>
+  <!-- the logo's paper plane (24px grid), scaled and tilted like the header mark -->
+  <g transform="translate(32 32) rotate(-12) scale(1.75) translate(-12 -11)" fill="#fff">
+    <path d="M22 2 2 9.5l7.5 3L22 2Z"/>
+    <path d="m22 2-12.5 10.5V20l3.6-4.4L17 19 22 2Z" opacity=".72"/>
+  </g>
+</svg>

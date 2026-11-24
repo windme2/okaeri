@@ -53,12 +53,12 @@ export function Pricing() {
               <motion.div
                 key={plan.name}
                 initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: plan.featured ? -16 : 0 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-60px" }}
                 transition={{ duration: 0.9, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
                 className={`group relative flex flex-col rounded-3xl p-6 transition-shadow duration-500 ${
                   plan.featured
-                    ? "bg-white shadow-2xl shadow-brand-950/40 ring-2 ring-white"
+                    ? "bg-white/95 shadow-xl shadow-brand-950/20 hover:shadow-2xl lg:-translate-y-4 lg:bg-white lg:shadow-2xl lg:shadow-brand-950/40 lg:ring-2 lg:ring-white"
                     : "bg-white/95 shadow-xl shadow-brand-950/20 hover:shadow-2xl"
                 }`}
               >
@@ -109,7 +109,7 @@ export function Pricing() {
                   }
                   className={`mt-8 w-full rounded-xl py-3 text-sm font-semibold transition ${
                     plan.featured
-                      ? "bg-brand-600 text-white shadow-lg shadow-brand-600/30 hover:bg-brand-700"
+                      ? "text-brand-700 ring-1 ring-brand-200 hover:bg-brand-50 lg:bg-brand-600 lg:text-white lg:shadow-lg lg:shadow-brand-600/30 lg:ring-0 lg:hover:bg-brand-700"
                       : "text-brand-700 ring-1 ring-brand-200 hover:bg-brand-50"
                   }`}
                 >

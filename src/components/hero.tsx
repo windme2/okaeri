@@ -132,7 +132,7 @@ export function Hero() {
           </motion.p>
 
           <motion.div
-            className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-4"
+            className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-7 sm:gap-y-4"
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 1.05, ease }}

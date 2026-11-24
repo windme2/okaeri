@@ -166,8 +166,9 @@ export function SearchPanel() {
       transition={{ duration: 1, delay: 1.1, ease }}
     >
       {/* Tabs */}
-      <div className="flex w-full overflow-x-auto sm:w-fit">
-        <div className="flex gap-1 rounded-t-3xl bg-white/80 p-2 pb-0 backdrop-blur-xl">
+      {/* phones: four equal tabs with the icon above the label so they fit without scrolling */}
+      <div className="flex w-full sm:w-fit">
+        <div className="grid w-full grid-cols-4 gap-1 rounded-t-3xl bg-white/80 p-2 pb-0 backdrop-blur-xl sm:flex sm:w-auto">
           {TABS.map(({ id, icon: Icon }) => (
             <button
               key={id}
@@ -176,7 +177,7 @@ export function SearchPanel() {
                 setTab(id);
                 setOutcome(null);
               }}
-              className={`relative flex items-center gap-2 rounded-t-2xl px-4 py-3 text-sm font-semibold transition-colors sm:px-6 ${
+              className={`relative flex flex-col items-center gap-1 rounded-t-2xl px-1 py-2.5 text-[11px] font-semibold transition-colors sm:flex-row sm:gap-2 sm:px-6 sm:py-3 sm:text-sm ${
                 tab === id ? "text-brand-700" : "text-slate-500 hover:text-ink"
               }`}
             >
@@ -194,7 +195,7 @@ export function SearchPanel() {
         </div>
       </div>
 
-      <form onSubmit={search} className="relative rounded-3xl rounded-tl-none bg-white p-4 shadow-lift ring-1 ring-brand-100/60 sm:p-5">
+      <form onSubmit={search} className="relative rounded-3xl rounded-t-none bg-white p-4 shadow-lift sm:rounded-tr-3xl ring-1 ring-brand-100/60 sm:p-5">
         <div className="relative z-20">
           <AnimatePresence mode="popLayout" initial={false}>
             <motion.div

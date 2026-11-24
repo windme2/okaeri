@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { AnimatePresence, motion } from "motion/react";
-import { Heart, X } from "lucide-react";
+import { Check, ChevronDown, Heart, X } from "lucide-react";
 import { PACKAGES, img } from "@/lib/data";
 import { useBooking } from "./booking";
 import { popoverMotion, usePopover } from "./popover";
@@ -11,11 +11,23 @@ import { Money, useCurrency, useWishlist, type Currency } from "./prefs";
 const pill = (light: boolean) =>
   light ? "bg-white/15 text-white ring-1 ring-white/40 backdrop-blur" : "bg-white text-ink ring-1 ring-brand-100";
 
+const CURRENCIES: Currency[] = ["USD", "THB"];
+
+/** Two-option toggle from `sm` up; a single compact dropdown on phones where the header is tight. */
 export function CurrencySwitch({ light }: { light: boolean }) {
+  return (
+    <>
+      <CurrencyToggle light={light} />
+      <CurrencyMenu light={light} />
+    </>
+  );
+}
+
+function CurrencyToggle({ light }: { light: boolean }) {
   const [currency, setCurrency] = useCurrency();
   return (
-    <div role="radiogroup" aria-label="Currency" className={`flex rounded-full p-1 text-xs font-semibold ${pill(light)}`}>
-      {(["USD", "THB"] as Currency[]).map((c) => (
+    <div role="radiogroup" aria-label="Currency" className={`hidden rounded-full p-1 text-xs font-semibold sm:flex ${pill(light)}`}>
+      {CURRENCIES.map((c) => (
         <button
           key={c}
           type="button"
@@ -36,6 +48,53 @@ export function CurrencySwitch({ light }: { light: boolean }) {
           <span className="relative">{c}</span>
         </button>
       ))}
+    </div>
+  );
+}
+
+function CurrencyMenu({ light }: { light: boolean }) {
+  const [currency, setCurrency] = useCurrency();
+  const { open, setOpen, rootRef } = usePopover();
+  return (
+    <div ref={rootRef} className="relative sm:hidden">
+      <button
+        type="button"
+        onClick={() => setOpen(!open)}
+        aria-haspopup="listbox"
+        aria-expanded={open}
+        aria-label={`Currency: ${currency}`}
+        className={`flex h-10 items-center gap-1 rounded-full px-3 text-xs font-semibold transition ${pill(light)}`}
+      >
+        {currency}
+        <ChevronDown className={`size-3.5 opacity-70 transition-transform ${open ? "rotate-180" : ""}`} />
+      </button>
+      <AnimatePresence>
+        {open && (
+          <motion.ul
+            role="listbox"
+            {...popoverMotion}
+            className="absolute right-0 top-full z-50 mt-2 w-28 origin-top-right rounded-2xl bg-white p-1.5 text-ink shadow-[0_24px_60px_-20px_rgb(21_36_81/0.35)] ring-1 ring-slate-900/5"
+          >
+            {CURRENCIES.map((c) => (
+              <li key={c} role="option" aria-selected={currency === c}>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setCurrency(c);
+                    setOpen(false);
+                  }}
+                  className={`flex w-full items-center justify-between rounded-xl px-3 py-2.5 text-sm transition hover:bg-brand-50 ${
+                    currency === c ? "font-semibold text-brand-700" : ""
+                  }`}
+                >
+                  {c}
+                  {currency === c && <Check className="size-4" />}
+                </button>
+              </li>
+            ))}
+          </motion.ul>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
